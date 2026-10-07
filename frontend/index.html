@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataDoctor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <div class="brand"> DataDoctor</div>
+            <nav class="nav">
+                <a class="active" href="#home">Dashboard</a>
+                <a href="#analyzer">Analyzer</a>
+                <a href="#history">History</a>
+            </nav>
+            <button class="profile" type="button">👤</button>
+        </div>
+    </header>
+    <main>
+        <section id="home" class="hero">
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <span class="eyebrow">DATA QUALITY ASSISTANT</span>
+                    <h1>Your dataset deserves<br><span>a health check.</span></h1>
+                    <p>
+                        Upload a CSV, inspect its structure, discover common
+                        data-quality issues and get a clear health score.
+                    </p>
+                </div>
+                <div id="analyzer" class="upload-zone">
+                    <div class="upload-icon">↥</div>
+                    <h2>Upload your CSV</h2>
+                    <p>Choose a file from your device.</p>
+                    <label for="csvFile" class="button">Choose CSV File</label>
+                    <input id="csvFile" type="file" accept=".csv,text/csv">
+                    <small>CSV files only</small>
+                    <div id="fileInfo" class="file-info hidden"></div>
+                </div>
+            </div>
+        </section>
+        <section id="dashboard" class="dashboard hidden">
+            <div class="container">
+                <div class="page-head">
+                    <div>
+                        <span class="eyebrow">DATASET OVERVIEW</span>
+                        <h2>Diagnosis dashboard</h2>
+                    </div>
+                    <button id="scanBtn" class="button" type="button">
+                        🔍 Scan Dataset
+                    </button>
+                </div>
+                <div class="file-strip">
+                    <div>
+                        <small>CURRENT FILE</small>
+                        <strong id="datasetName">—</strong>
+                    </div>
+                    <span id="previewStatus">Ready</span>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <b>↕</b>
+                        <div>
+                            <small>Total Rows</small>
+                            <strong id="rowCount">0</strong>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <b>▦</b>
+                        <div>
+                            <small>Columns</small>
+                            <strong id="columnCount">0</strong>
+                        </div>
+                    </div>
+                    <div class="stat warning">
+                        <b>!</b>
+                        <div>
+                            <small>Missing Values</small>
+                            <strong id="missingCount">—</strong>
+                        </div>
+                    </div>
+                    <div class="stat danger">
+                        <b>↻</b>
+                        <div>
+                            <small>Duplicates</small>
+                            <strong id="duplicateCount">—</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-grid">
+                    <article class="panel">
+                        <div class="panel-head">
+                            <div>
+                                <span class="eyebrow">PREVIEW</span>
+                                <h3>Your dataset</h3>
+                            </div>
+                            <small>First 10 rows</small>
+                        </div>
+                        <div class="table-wrap">
+                            <table id="previewTable">
+                                <thead></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </article>
+                    <article class="panel score-panel">
+                        <span class="eyebrow">OVERALL HEALTH</span>
+                        <h3>Dataset score</h3>
+                        <div class="score-ring">
+                            <strong id="healthScore">—</strong>
+                            <span>/100</span>
+                        </div>
+                        <h4 id="healthTitle">Waiting for diagnosis</h4>
+                        <p id="healthMessage">
+                            Upload and scan your dataset to calculate its health.
+                        </p>
+                        <div class="legend">
+                            Healthy &nbsp; • &nbsp; Needs attention &nbsp; • &nbsp; Critical
+                        </div>
+                    </article>
+                </div>
+                <article class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <span class="eyebrow">DIAGNOSIS</span>
+                            <h3>Issues detected</h3>
+                            <p>Missing values, duplicates, mixed values and outliers.</p>
+                        </div>
+                    </div>
+                    <div id="issuesList" class="issues">
+                        <div class="empty">
+                             No diagnosis yet. Upload and scan a CSV.
+                        </div>
+                    </div>
+                    <div class="column-diagnosis">
+                        <div class="panel-head">
+                            <div>
+                                <span class="eyebrow">COLUMN ANALYSIS</span>
+                                <h3>Column Diagnosis</h3>
+                                <p>Detected data type, missing values and statistics for each column.</p>
+                            </div>
+                        </div>
+                        <div class="table-wrap">
+                            <table id="columnDiagnosisTable">
+                                <thead>
+                                    <tr>
+                                        <th>Column</th>
+                                        <th>Data Type</th>
+                                        <th>Total Values</th>
+                                        <th>Missing Values</th>
+                                        <th>Statistics</th>
+                                        <th>Outliers</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section id="history" class="history">
+            <div class="container">
+                <span class="eyebrow">HISTORY</span>
+                <h2>Saved analyses</h2>
+                <p>Reports generated from your CSV scans are saved in MongoDB.</p>
+                <div id="savedReports" class="saved-reports">
+                    <p class="empty">📋 No saved reports yet.</p>
+                </div>
+                <section class="report-details" id="reportDetails">
+                    <h2>📊 Report Details</h2>
+                    <div id="reportDetailsContent">
+                        <p>Select a saved report to view its details.</p>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+    <footer> DataDoctor • WAD Micro Project</footer>
+    <script src="script.js"></script>
+</body>
+</html>

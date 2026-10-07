@@ -1,0 +1,5 @@
+backend/.env
+backend/node_modules/
+clean_frontend/
+frontend_step1_backup/
+test/
